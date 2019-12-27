@@ -33,7 +33,7 @@ class CharacterController extends Controller
             
             
         }catch(\Exception $e){
-          // dump($e);
+           //dump($e);
         }
         
         return json_encode($message);    

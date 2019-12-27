@@ -5,7 +5,7 @@
             Star wars films
         </title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
     </head>
     <body>
         @include('includes.header')
@@ -28,9 +28,12 @@
                 $(document).ready(function(){
                     $('.character').on('click', function(event){
                         event.preventDefault();
-                        $.post('/character', {name : $(this).data('name'), "_token": "{{ csrf_token() }}" }).done(function(data){
+                        var pj = $(this).data('name');
+                        $.post("{{route('character_store')}}", {name : $(this).data('name'), 
+                            "_token": $('meta[name="csrf-token"]').attr('content')}
+                              ).done(function(data){
                             //console.log(data);
-                            $('#message').text(data);
+                            $('#message').text(pj + " | " + data);
                         });
                     });
                 });
